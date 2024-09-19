@@ -25,4 +25,4 @@ jobs:
         uses: microsoft/playwright-github-action@v1
 
       - name: Run Playwright tests for ${{ matrix.folder }}
-        run: npx playwright test ./tests/${{ matrix.folder }}/*.spec.js --project=chromium
+        run: npx playwright test ./tests/${{ matrix.folder }} --project=chromium

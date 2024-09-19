@@ -3,7 +3,7 @@ test.setTimeout(100000);
 
 test('test', async ({ page }) => {
 
-  await page.goto('https://app-staging.qlub.cloud/qr/ae/Auto_NgeniusSezai/9/_/_/6b2d44e427');
+  await page.goto('https://app-dev2.qlub.cloud/qr/ae/Auto_NgeniusPayInTipMod/2/_/_/351f78b169');
   await page.getByRole('button', { name: 'Pay now' }).click();
 
   // Split the bill
@@ -12,7 +12,12 @@ test('test', async ({ page }) => {
   await page.getByPlaceholder('00.00').click();
   await page.getByPlaceholder('00.00').fill('10');
   await page.getByRole('button', { name: 'Confirm' }).click();
-  
+
+
+  await page.evaluate(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+
   // Wait for card iframe 
   const cardIframe = page.frameLocator('iframe[name="ni-card-input"]');
   await cardIframe.locator('input[placeholder="Card number"]').waitFor({ state: 'visible' });
@@ -31,6 +36,10 @@ test('test', async ({ page }) => {
   const payNowButton = page.locator('span.wrapper:has-text("Pay Now")');
   await payNowButton.click();
 
+  //Trigger Tip Modal
+  await page.locator('#tip_modal_10').getByText('%').click();
+  await page.locator('button').filter({ hasText: 'Pay Now' }).click();
+
   // Wait for 3DS iframe 
   const threeDsIframe = page.frameLocator('iframe[name="three-ds-two-frame"]').frameLocator('[data-testid="\\33 ds_iframe"]');
   await threeDsIframe.getByRole('textbox').waitFor({ state: 'visible' });
@@ -47,6 +56,6 @@ test('test', async ({ page }) => {
    await expect(page.locator('p.MuiTypography-root.MuiTypography-body1.css-1ih4cbc')).toHaveText('Partially paid');
  
    await page.locator('p.MuiTypography-root.MuiTypography-body1.css-1xyuldj').waitFor({ state: 'visible' });
-   await expect(page.locator('p.MuiTypography-root.MuiTypography-body1.css-1xyuldj')).toHaveText('Table 9 (Table 1)');
+   await expect(page.locator('p.MuiTypography-root.MuiTypography-body1.css-1xyuldj')).toHaveText('Table 2 (Table 1)');
 
 });

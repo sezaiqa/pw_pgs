@@ -3,23 +3,25 @@ test.setTimeout(100000);
 
 test('test', async ({ page }) => {
 
-  await page.goto('https://app-staging.qlub.cloud/qr/ae/Auto_NgeniusSezai/9/_/_/6b2d44e427');
+  await page.goto('https://app-dev2.qlub.cloud/qr/ae/Auto_Ngenius/3/_/_/be974ae643');
   await page.getByRole('button', { name: 'Pay now' }).click();
+  await page.getByRole('button', { name: 'Pay fully' }).click();
 
-  // Split the bill
-  await page.getByRole('button', { name: 'Split bill' }).click();
-  await page.locator('#select-custom').click();
-  await page.getByPlaceholder('00.00').click();
-  await page.getByPlaceholder('00.00').fill('10');
-  await page.getByRole('button', { name: 'Confirm' }).click();
-  
+  await page.evaluate(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+
   // Wait for card iframe 
   const cardIframe = page.frameLocator('iframe[name="ni-card-input"]');
   await cardIframe.locator('input[placeholder="Card number"]').waitFor({ state: 'visible' });
 
+  //Add tip
+  await page.getByText('Pay custom tip').click();
+  await page.getByPlaceholder('0.00').fill('10');
+
   // Enter Card Number
   await cardIframe.getByPlaceholder('Card number').click();
-  await cardIframe.getByPlaceholder('Card number').fill('5457210001000019');
+  await cardIframe.getByPlaceholder('Card number').fill('4012001037167778');
   await cardIframe.getByPlaceholder('MM/YY').click();
   await cardIframe.getByPlaceholder('MM/YY').fill('03/29');
   await cardIframe.getByPlaceholder('CVV').click();
@@ -44,9 +46,9 @@ test('test', async ({ page }) => {
    await expect(page.locator('p.MuiTypography-root.MuiTypography-body1.css-1dbb4wf')).toHaveText('Payment was successful!');
  
    await page.locator('p.MuiTypography-root.MuiTypography-body1.css-1ih4cbc').waitFor({ state: 'visible' });
-   await expect(page.locator('p.MuiTypography-root.MuiTypography-body1.css-1ih4cbc')).toHaveText('Partially paid');
+   await expect(page.locator('p.MuiTypography-root.MuiTypography-body1.css-1ih4cbc')).toHaveText('Fully paid');
  
    await page.locator('p.MuiTypography-root.MuiTypography-body1.css-1xyuldj').waitFor({ state: 'visible' });
-   await expect(page.locator('p.MuiTypography-root.MuiTypography-body1.css-1xyuldj')).toHaveText('Table 9 (Table 1)');
+   await expect(page.locator('p.MuiTypography-root.MuiTypography-body1.css-1xyuldj')).toHaveText('Table 3 (Table 1)');
 
 });

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
-  await page.goto('https://app-staging.qlub.cloud/qr/sg/Auto_AdyenSezai/19/_/_/d8cc0cf9df');
+  await page.goto('https://app-staging.qlub.cloud/qr/sg/Auto_AdyenSezai/18/_/_/b028d45ba8');
   await page.getByRole('button', { name: 'Pay now' }).click();
   await page.getByRole('button', { name: 'Pay fully' }).click();
 
@@ -33,8 +33,6 @@ const tableNumberText = await page.$('p.MuiTypography-root.MuiTypography-body1.c
   expect(fullyPaidText).not.toBeNull();
   expect(await fullyPaidText.textContent()).toContain('Fully paid');
   
-
-
 });
 
 

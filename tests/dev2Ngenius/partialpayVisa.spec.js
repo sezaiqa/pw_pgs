@@ -3,7 +3,7 @@ test.setTimeout(100000);
 
 test('test', async ({ page }) => {
 
-  await page.goto('https://app-staging.qlub.cloud/qr/ae/Auto_NgeniusSezai/9/_/_/6b2d44e427');
+  await page.goto('https://app-dev2.qlub.cloud/qr/ae/Auto_Ngenius/4/_/_/be88190f34');
   await page.getByRole('button', { name: 'Pay now' }).click();
 
   // Split the bill
@@ -19,7 +19,7 @@ test('test', async ({ page }) => {
 
   // Enter Card Number
   await cardIframe.getByPlaceholder('Card number').click();
-  await cardIframe.getByPlaceholder('Card number').fill('5457210001000019');
+  await cardIframe.getByPlaceholder('Card number').fill('4012001037167778');
   await cardIframe.getByPlaceholder('MM/YY').click();
   await cardIframe.getByPlaceholder('MM/YY').fill('03/29');
   await cardIframe.getByPlaceholder('CVV').click();
@@ -47,6 +47,6 @@ test('test', async ({ page }) => {
    await expect(page.locator('p.MuiTypography-root.MuiTypography-body1.css-1ih4cbc')).toHaveText('Partially paid');
  
    await page.locator('p.MuiTypography-root.MuiTypography-body1.css-1xyuldj').waitFor({ state: 'visible' });
-   await expect(page.locator('p.MuiTypography-root.MuiTypography-body1.css-1xyuldj')).toHaveText('Table 9 (Table 1)');
+   await expect(page.locator('p.MuiTypography-root.MuiTypography-body1.css-1xyuldj')).toHaveText('Table 4 (Table 1)');
 
 });

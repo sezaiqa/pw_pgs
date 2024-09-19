@@ -1,10 +1,9 @@
 import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
-  await page.goto('https://app-staging.qlub.cloud/qr/sg/Auto_AdyenSezai/20/_/_/13cf86d057');
+  await page.goto('https://app-staging.qlub.cloud/qr/sg/Auto_AdyenSezai/14/_/_/0a38223092');
   await page.getByRole('button', { name: 'Pay now' }).click();
-  await page.getByRole('button', { name: 'Pay fully' }).click();
-
+ 
        //Split the bill
        await page.getByRole('button', { name: 'Split bill' }).click();
        await page.locator('#select-custom').click();
@@ -40,7 +39,7 @@ const tableNumberText = await page.$('p.MuiTypography-root.MuiTypography-body1.c
   expect(await fullyPaidText.textContent()).toContain('Partially paid');
   
   expect(tableNumberText).not.toBeNull();
-  expect(await tableNumberText.textContent()).toContain('Table 20 (Table 3)');
+  expect(await tableNumberText.textContent()).toContain('Table 14 (Table 2)');
 
 });
 

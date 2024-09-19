@@ -3,7 +3,7 @@ test.setTimeout(100000);
 
 test('test', async ({ page }) => {
 
-  await page.goto('https://app-staging.qlub.cloud/qr/ae/Auto_NgeniusSezai/7/_/_/20f73122ab');
+  await page.goto('https://app-dev2.qlub.cloud/qr/ae/Auto_Ngenius/7/_/_/0ad40c7be2');
   await page.getByRole('button', { name: 'Pay now' }).click();
   await page.getByRole('button', { name: 'Pay fully' }).click();
 

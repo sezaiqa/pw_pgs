@@ -7,13 +7,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        folder:
-          - dev2Checkout
-          - dev2Moyasar
-          - dev2Ngenius
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -24,5 +17,9 @@ jobs:
       - name: Install Playwright dependencies
         uses: microsoft/playwright-github-action@v1
 
-      - name: Run Playwright tests for ${{ matrix.folder }}
-        run: npx playwright test ./tests/${{ matrix.folder }} --project=chromium
+      - name: Run Playwright tests for multiple folders
+        run: |
+          for folder in dev2Checkout dev2Moyasar dev2Ngenius; do
+            echo "Running tests for $folder"
+            npx playwright test ./tests/$folder --project=chromium
+          done

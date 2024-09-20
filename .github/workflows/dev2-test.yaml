@@ -1,7 +1,7 @@
 name: Run Playwright Tests on Dev2
 
 on:
-  workflow_dispatch:  
+  workflow_dispatch:
 
 jobs:
   test:
@@ -17,9 +17,13 @@ jobs:
       - name: Install Playwright dependencies
         uses: microsoft/playwright-github-action@v1
 
-      - name: Run Playwright tests for multiple folders
+      - name: Run Playwright tests for specific folders
         run: |
-          for folder in dev2Checkout dev2Moyasar dev2Ngenius; do
-            echo "Running tests for $folder"
-            npx playwright test tests/$folder/*.spec.js --project=chromium || exit 1
-          done
+          echo "Running tests in dev2Checkout"
+          npx playwright test tests/dev2Checkout/*.spec.js --project=chromium --headless
+          
+          echo "Running tests in dev2Moyasar"
+          npx playwright test tests/dev2Moyasar/*.spec.js --project=chromium --headless
+          
+          echo "Running tests in dev2Ngenius"
+          npx playwright test tests/dev2Ngenius/*.spec.js --project=chromium --headless

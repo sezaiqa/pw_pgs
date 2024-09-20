@@ -1,7 +1,7 @@
 name: Run Playwright Tests on Dev2
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  
 
 jobs:
   test:
@@ -20,10 +20,10 @@ jobs:
       - name: Run Playwright tests for specific folders
         run: |
           echo "Running tests in dev2Checkout"
-          npx playwright test tests/dev2Checkout/*.spec.js --project=chromium --headless
+          npx playwright test tests/dev2Checkout/*.spec.js --project=chromium
           
           echo "Running tests in dev2Moyasar"
-          npx playwright test tests/dev2Moyasar/*.spec.js --project=chromium --headless
+          npx playwright test tests/dev2Moyasar/*.spec.js --project=chromium
           
           echo "Running tests in dev2Ngenius"
-          npx playwright test tests/dev2Ngenius/*.spec.js --project=chromium --headless
+          npx playwright test tests/dev2Ngenius/*.spec.js --project=chromium

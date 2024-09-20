@@ -14,10 +14,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Playwright dependencies
+        uses: microsoft/playwright-github-action@v1
+
       - name: Install Playwright browsers
         run: npx playwright install
 
-      - name: Run Playwright tests for dev2Checkout, dev2Moyasar, and dev2Ngenius
+      - name: Run Playwright tests
         run: |
-          echo "Running tests in dev2Checkout, dev2Moyasar, and dev2Ngenius"
-          npx playwright test --config=playwright.config.js --project=chromium tests/dev2Checkout/**/*.spec.js tests/dev2Moyasar/**/*.spec.js tests/dev2Ngenius/**/*.spec.js
+          echo "Running tests for dev2Checkout, dev2Moyasar, and dev2Ngenius"
+          npx playwright test --config=playwright.config.js --project=chromium

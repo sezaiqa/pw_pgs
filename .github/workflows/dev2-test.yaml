@@ -1,7 +1,8 @@
-name: Run Playwright Tests for Specific Folders
+name: Run Playwright Tests on Dev2
 
 on:
   workflow_dispatch:  
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -16,13 +17,17 @@ jobs:
       - name: Install Playwright dependencies
         uses: microsoft/playwright-github-action@v1
 
-      - name: Run Playwright tests for specific folders
+      - name: Run Playwright tests for dev2Checkout
         run: |
           echo "Running tests in dev2Checkout"
-          npx playwright test --config=playwright.config.js tests/dev2Checkout/**/*.spec.js --project=chromium
-          
+          npx playwright test --config=playwright.config.js --project=chromium --test-match='tests/dev2Checkout/**/*.spec.js'
+
+      - name: Run Playwright tests for dev2Moyasar
+        run: |
           echo "Running tests in dev2Moyasar"
-          npx playwright test --config=playwright.config.js tests/dev2Moyasar/**/*.spec.js --project=chromium
-          
+          npx playwright test --config=playwright.config.js --project=chromium --test-match='tests/dev2Moyasar/**/*.spec.js'
+
+      - name: Run Playwright tests for dev2Ngenius
+        run: |
           echo "Running tests in dev2Ngenius"
-          npx playwright test --config=playwright.config.js tests/dev2Ngenius/**/*.spec.js --project=chromium
+          npx playwright test --config=playwright.config.js --project=chromium --test-match='tests/dev2Ngenius/**/*.spec.js'

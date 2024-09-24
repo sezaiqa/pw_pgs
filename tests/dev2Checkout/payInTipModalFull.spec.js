@@ -1,8 +1,15 @@
 import { test, expect } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.goto('https://app-dev2.qlub.cloud/qr/ae/Auto_CheckPinTipMod/1/_/_/1854d3deae'); 
+});
+
+test.afterEach(async ({ page }) => {
+  await page.close();  
+});
+
 test('test', async ({ page }) => {
 
-  await page.goto('https://app-dev2.qlub.cloud/qr/ae/Auto_CheckPinTipMod/1/_/_/1854d3deae');
   await page.getByRole('button', { name: 'Pay now' }).click();
   await page.getByText('Pay custom tip').click();
   await page.getByPlaceholder('0.00').click();

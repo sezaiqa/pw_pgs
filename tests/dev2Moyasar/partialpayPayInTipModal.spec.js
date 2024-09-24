@@ -1,8 +1,16 @@
 import { test, expect } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.goto('https://app-dev2.qlub.cloud/qr/sa/Auto_MoyasarPayinTipMod/2/_/_/a170748ad1'); 
+});
+
+test.afterEach(async ({ page }) => {
+  await page.close();  
+});
+
 test('test', async ({ page }) => {
+  
 //Fetch Order
-await page.goto('https://app-dev2.qlub.cloud/qr/sa/Auto_MoyasarPayinTipMod/2/_/_/a170748ad1');
 await page.getByRole('button', { name: 'Pay now' }).click();
 
 // Wait for Card information 
@@ -22,7 +30,7 @@ await page.getByPlaceholder('00.00').fill('10');
 await page.getByRole('button', { name: 'Confirm' }).click();
 
 // Click Pay Now
-await page.getByRole('button', { name:'Pay'}).click();
+await page.getByRole('button', { name: 'Pay' }).click();
 
 // Wait for the tip modal to be visible and interactable
 await page.waitForSelector('#tip_modal_10', { state: 'visible' });

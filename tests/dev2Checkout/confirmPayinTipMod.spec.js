@@ -1,8 +1,13 @@
 import { test, expect } from '@playwright/test';
+test.beforeEach(async ({ page }) => {
+  await page.goto('https://app-dev2.qlub.cloud/qr/ae/Auto_CheckConfPayInTP/2/_/_/9f4dbe9065'); 
+});
+
+test.afterEach(async ({ page }) => {
+  await page.close();  
+});
 
 test('test', async ({ page }) => {
-
-  await page.goto('https://app-dev2.qlub.cloud/qr/ae/Auto_CheckConfPayInTP/2/_/_/9f4dbe9065');
   await page.getByRole('button', { name: 'Pay now' }).click();
 
   // Enter Card Number

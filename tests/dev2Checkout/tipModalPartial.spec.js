@@ -1,8 +1,15 @@
 import { test, expect } from '@playwright/test';
 
-test('test', async ({ page }) => {
+test.beforeEach(async ({ page }) => {
+  await page.goto('https://app-dev2.qlub.cloud/qr/ae/Auto_CheckTipModal/2/_/_/c888e9782b'); 
+});
 
-  await page.goto('https://app-dev2.qlub.cloud/qr/ae/Auto_CheckTipModal/2/_/_/c888e9782b');
+test.afterEach(async ({ page }) => {
+  await page.close();  
+});
+
+test('test', async ({ page }) => {
+  
   await page.getByRole('button', { name: 'Pay now' }).click();
   
   //Split the bill

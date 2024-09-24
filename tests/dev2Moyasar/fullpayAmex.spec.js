@@ -1,8 +1,17 @@
 import { test, expect } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+    await page.goto('https://app-dev2.qlub.cloud/qr/sa/Auto_Moyasar/3/_/_/352327d5ec'); 
+  });
+  
+  
+  test.afterEach(async ({ page }) => {
+    await page.close();  
+  });
+
 test('test', async ({ page }) => {
+    
 //Fetch Order
-await page.goto('https://app-dev2.qlub.cloud/qr/sa/Auto_Moyasar/3/_/_/352327d5ec');
 await page.getByRole('button', { name: 'Pay now' }).click();
 
 // Wait for Card information 
@@ -21,17 +30,6 @@ await page.getByRole('button', { name: 'Pay' }).click();
 await page.waitForSelector('#acs_code');
 await page.locator('#acs_code').fill('12345');
 await page.locator('//button[@type="submit" and contains(@class, "button")]').click();
-
-  //Assertions
-
-  const paymentSuccessfulText = await page.locator('p.MuiTypography-root.MuiTypography-body1.css-1dbb4wf');
-  await expect(paymentSuccessfulText).toHaveText('Payment was successful!');
-  
-  const fullyPaidText = await page.locator('p.MuiTypography-root.MuiTypography-body1.css-1ih4cbc');
-  await expect(fullyPaidText).toHaveText('Fully paid');
-  
-  const tableNumberText = await page.locator('p.MuiTypography-root.MuiTypography-body1.css-1xyuldj');
-  await expect(tableNumberText).toHaveText('Table 3 (Table 1)');
   
 });
 

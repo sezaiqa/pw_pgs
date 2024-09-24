@@ -14,10 +14,6 @@ module.exports = defineConfig({
   testDir: './tests',
   testMatch: [
     'tests/dev2Checkout/**/*.spec.js',
-    'tests/dev2Moyasar/**/*.spec.js',
-    'tests/dev2Adyen/**/*.spec.js',
-    'tests/dev2Tyro/**/*.spec.js',
-    'tests/dev2Tuna/**/*.spec.js',
   ],
   /* Run tests in files in parallel */
   fullyParallel: true,

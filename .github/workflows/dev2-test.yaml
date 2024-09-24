@@ -45,12 +45,12 @@ jobs:
       - name: Choose Playwright config
         run: |
           case ${{ github.event.inputs.environment }} in
-            Moyasar) config="configs/playwright.config-dev2Moyasar.js";;
-            Tyro) config="configs/playwright.config-dev2Tyro.js";;
-            Tuna) config="configs/playwright.config-dev2Tuna.js";;
-            Checkout) config="configs/playwright.config-dev2Checkout.js";;
-            Adyen) config="configs/playwright.config-dev2Adyen.js";;
-            Ngenius) config="configs/playwright.config-dev2Ngenius.js";;
+            Moyasar) config="../configs/playwright.config-dev2Moyasar.js";;
+            Tyro) config="../configs/playwright.config-dev2Tyro.js";;
+            Tuna) config="../configs/playwright.config-dev2Tuna.js";;
+            Checkout) config="../configs/playwright.config-dev2Checkout.js";;
+            Adyen) config="../configs/playwright.config-dev2Adyen.js";;
+            Ngenius) config="../configs/playwright.config-dev2Ngenius.js";;
             *) echo "Invalid environment" && exit 1;;
           esac
           echo "Using config $config"

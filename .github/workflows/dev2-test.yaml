@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Choose the environment'
+        description: 'Choose the PG'
         required: true
         default: 'Moyasar'
         type: choice
@@ -14,6 +14,7 @@ on:
           - Tuna
           - Checkout
           - Adyen
+          - Ngenius
 
 jobs:
   test:
@@ -49,6 +50,7 @@ jobs:
             Tuna) config="configs/playwright.config-dev2Tuna.js";;
             Checkout) config="configs/playwright.config-dev2Checkout.js";;
             Adyen) config="configs/playwright.config-dev2Adyen.js";;
+            Ngenius) config="configs/playwright.config-dev2Ngenius.js";;
             *) echo "Invalid environment" && exit 1;;
           esac
           echo "Using config $config"

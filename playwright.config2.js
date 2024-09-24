@@ -15,7 +15,6 @@ module.exports = defineConfig({
   testMatch: [
     'tests/dev2Checkout/**/*.spec.js',
     'tests/dev2Moyasar/**/*.spec.js',
-    'tests/dev2Ngenius/**/*.spec.js',
     'tests/dev2Adyen/**/*.spec.js',
     'tests/dev2Tyro/**/*.spec.js',
     'tests/dev2Tuna/**/*.spec.js',

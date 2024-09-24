@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         shard: [1/2, 2/2]
-    
+
     steps:
       - name: Cache node modules
         uses: actions/cache@v3

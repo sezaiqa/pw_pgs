@@ -11,7 +11,8 @@ const { defineConfig, devices } = require('@playwright/test');
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
-   testMatch: '**/tests/dev2Checkout/**/*.spec.js', // Match only dev2Checkout tests
+  testDir: './tests/dev2Checkout/',
+  testMatch: '**/tests/dev2Checkout/**/*.spec.js', // Match only dev2Checkout tests
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

@@ -12,7 +12,6 @@ jobs:
         shard: [1/2, 2/2]  
 
     steps:
-      # Cache node modules to speed up the dependency installation
       - name: Cache node modules
         uses: actions/cache@v3
         with:
@@ -27,7 +26,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Playwright tests
+      - name: Install Playwright browsers and dependencies
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests for shard ${{ matrix.shard }}
         run: |
           echo "Running shard ${{ matrix.shard }}"
           npx playwright test --config=playwright.config2.js --project=chromium --shard=${{ matrix.shard }}

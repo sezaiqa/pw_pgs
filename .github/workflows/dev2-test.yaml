@@ -25,6 +25,9 @@ jobs:
         shard: [1/2, 2/2]
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Cache node modules
         uses: actions/cache@v3
         with:
@@ -33,29 +36,26 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
       - name: Install dependencies
         run: npm ci
 
       - name: Install Playwright browsers and dependencies
         run: npx playwright install --with-deps
 
-      - name: Choose Playwright config
+      - name: Set test folder based on environment
         run: |
           case ${{ github.event.inputs.environment }} in
-            Moyasar) config="../configs/playwright.config-dev2Moyasar.js";;
-            Tyro) config="../configs/playwright.config-dev2Tyro.js";;
-            Tuna) config="../configs/playwright.config-dev2Tuna.js";;
-            Checkout) config="../configs/playwright.config-dev2Checkout.js";;
-            Adyen) config="playwright.config-dev2Adyen.js";;
-            Ngenius) config="../configs/playwright.config-dev2Ngenius.js";;
+            Moyasar) test_folder="tests/dev2Moyasar";;
+            Tyro) test_folder="tests/dev2Tyro";;
+            Tuna) test_folder="tests/dev2Tuna";;
+            Checkout) test_folder="tests/dev2Checkout";;
+            Adyen) test_folder="tests/dev2Adyen";;
+            Ngenius) test_folder="tests/dev2Ngenius";;
             *) echo "Invalid environment" && exit 1;;
           esac
-          echo "Using config $config"
+          echo "TEST_FOLDER=$test_folder" >> $GITHUB_ENV
 
       - name: Run Playwright tests for shard ${{ matrix.shard }}
         run: |
-          echo "Running shard ${{ matrix.shard }} with config $config"
-          npx playwright test --config=$config --project=chromium --shard=${{ matrix.shard }}
+          echo "Running shard ${{ matrix.shard }} with test folder $TEST_FOLDER"
+          npx playwright test $TEST_FOLDER --project=chromium --shard=${{ matrix.shard }}

@@ -1,4 +1,4 @@
-name: PG Tests 
+name: Test the Payment Gateways 
 
 on:
   workflow_dispatch:
@@ -94,3 +94,33 @@ jobs:
         run: |
           echo "Running shard ${{ matrix.shard }} with test folder $TEST_FOLDER on browser $BROWSER"
           npx playwright test $TEST_FOLDER --project=$BROWSER --shard=${{ matrix.shard }}
+
+      - name: Send Slack Notification
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "Playwright tests have been triggered for *${{ github.event.inputs.env }}* with *${{ github.event.inputs.environment }}* on browser *${{ github.event.inputs.browser }}*.",
+            "attachments": [
+              {
+                "color": "#36a64f",
+                "fields": [
+                  {
+                    "title": "Environment",
+                    "value": "${{ github.event.inputs.env }}",
+                    "short": true
+                  },
+                  {
+                    "title": "Payment Gateway",
+                    "value": "${{ github.event.inputs.environment }}",
+                    "short": true
+                  },
+                  {
+                    "title": "Browser",
+                    "value": "${{ github.event.inputs.browser }}",
+                    "short": true
+                  }
+                ],
+                "footer": "GitHub Actions | Workflow Run ID: ${{ github.run_id }}",
+                "ts": '"$(date +%s)"'
+              }
+            ]
+          }' ${{ secrets.SLACK_WEBHOOK_URL }}

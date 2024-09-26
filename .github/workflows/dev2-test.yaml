@@ -15,6 +15,15 @@ on:
           - Checkout
           - Adyen
           - Ngenius
+      browser:
+        description: 'Choose the browser'
+        required: true
+        default: 'chromium'
+        type: choice
+        options:
+          - chromium
+          - firefox
+          - webkit
 
 jobs:
   test:
@@ -42,8 +51,9 @@ jobs:
       - name: Install Playwright browsers and dependencies
         run: npx playwright install --with-deps
 
-      - name: Set test folder based on environment
+      - name: Set test folder and browser based on inputs
         run: |
+          # Set test folder based on the chosen environment
           case ${{ github.event.inputs.environment }} in
             Moyasar) test_folder="tests/dev2Moyasar";;
             Tyro) test_folder="tests/dev2Tyro";;
@@ -55,7 +65,16 @@ jobs:
           esac
           echo "TEST_FOLDER=$test_folder" >> $GITHUB_ENV
 
+          # Set the browser based on user input
+          case ${{ github.event.inputs.browser }} in
+            chromium) browser="chromium";;
+            firefox) browser="firefox";;
+            webkit) browser="webkit";;
+            *) echo "Invalid browser" && exit 1;;
+          esac
+          echo "BROWSER=$browser" >> $GITHUB_ENV
+
       - name: Run Playwright tests for shard ${{ matrix.shard }}
         run: |
-          echo "Running shard ${{ matrix.shard }} with test folder $TEST_FOLDER"
-          npx playwright test $TEST_FOLDER --project=chromium --shard=${{ matrix.shard }}
+          echo "Running shard ${{ matrix.shard }} with test folder $TEST_FOLDER on browser $BROWSER"
+          npx playwright test $TEST_FOLDER --project=$BROWSER --shard=${{ matrix.shard }}

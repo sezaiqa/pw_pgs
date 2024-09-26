@@ -1,4 +1,4 @@
-name: Run Playwright Tests on Dev2
+name: PG Tests 
 
 on:
   workflow_dispatch:
@@ -15,8 +15,16 @@ on:
           - Checkout
           - Adyen
           - Ngenius
+      env:
+        description: 'Choose the Environment'
+        required: true
+        default: 'dev2'
+        type: choice
+        options:
+          - dev2
+          - dev5
       browser:
-        description: 'Choose the browser'
+        description: 'Choose the Browser'
         required: true
         default: 'chromium'
         type: choice
@@ -53,16 +61,24 @@ jobs:
 
       - name: Set test folder and browser based on inputs
         run: |
-          # Set test folder based on the chosen environment
+          # Set test folder based on the chosen environment and PG
           case ${{ github.event.inputs.environment }} in
-            Moyasar) test_folder="tests/dev2Moyasar";;
-            Tyro) test_folder="tests/dev2Tyro";;
-            Tuna) test_folder="tests/dev2Tuna";;
-            Checkout) test_folder="tests/dev2Checkout";;
-            Adyen) test_folder="tests/dev2Adyen";;
-            Ngenius) test_folder="tests/dev2Ngenius";;
+            Moyasar) pg_folder="Moyasar";;
+            Tyro) pg_folder="Tyro";;
+            Tuna) pg_folder="Tuna";;
+            Checkout) pg_folder="Checkout";;
+            Adyen) pg_folder="Adyen";;
+            Ngenius) pg_folder="Ngenius";;
+            *) echo "Invalid PG environment" && exit 1;;
+          esac
+
+          case ${{ github.event.inputs.env }} in
+            dev2) env_folder="dev2";;
+            dev5) env_folder="dev5";;
             *) echo "Invalid environment" && exit 1;;
           esac
+
+          test_folder="tests/${env_folder}${pg_folder}"
           echo "TEST_FOLDER=$test_folder" >> $GITHUB_ENV
 
           # Set the browser based on user input

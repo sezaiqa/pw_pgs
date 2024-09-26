@@ -23,6 +23,7 @@ on:
         options:
           - dev2
           - dev5
+          - dev9
       browser:
         description: 'Choose the Browser'
         required: true

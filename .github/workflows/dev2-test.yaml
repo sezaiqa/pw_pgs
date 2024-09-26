@@ -1,4 +1,4 @@
-name: Test the Payment Gateways 
+name: Test the Payment Gateways for ${{ github.event.inputs.env }} - ${{ github.event.inputs.environment }}
 
 on:
   workflow_dispatch:

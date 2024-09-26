@@ -14,7 +14,7 @@ test('test', async ({ page }) => {
   const cardNumberFrameElement = await page.waitForSelector('iframe[name="checkout-frames-cardNumber"]', { state: 'attached' });
   const cardNumberFrame = await cardNumberFrameElement.contentFrame();
   if (cardNumberFrame) {
-    await cardNumberFrame.fill('input[name="cardnumber"]', '4242424242424242');
+    await cardNumberFrame.fill('input[name="cardnumber"]','4242424242424242');
   } else {
     console.log('Card number iframe not found');
     return;

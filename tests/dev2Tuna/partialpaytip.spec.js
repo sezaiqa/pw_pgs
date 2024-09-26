@@ -23,7 +23,6 @@ test('test', async ({ page }) => {
     await page.getByPlaceholder('0.00', { exact: true }).fill('10');
 
   //Card Name
-  await page.getByRole('button', { name: 'Card' }).click();
   await page.getByRole('textbox', { name: 'Cardholder Name' }).click();
   await page.getByRole('textbox', { name: 'Cardholder Name' }).fill('Captured');
 

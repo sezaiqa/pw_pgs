@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+test.setTimeout(50000);
 
 test.beforeEach(async ({ page }) => {
   await page.goto('https://app-dev2.qlub.cloud/qr/sa/Auto_Moyasar/7/_/_/fa68f485c4'); 
@@ -13,6 +14,12 @@ test('test', async ({ page }) => {
 //Fetch Order
 await page.getByRole('button', { name: 'Pay now' }).click();
 
+// Enter Card information
+await page.locator('#mysr-cc-name').fill('Test Test');
+await page.locator('#mysr-cc-number').fill('340000000900000');
+await page.getByPlaceholder('MM / YY').fill('12 / 31');
+await page.getByPlaceholder('CVC').fill('1234');
+
 //Split the bill
 await page.getByRole('button', { name: 'Split bill' }).click();
 await page.locator('#select-custom').click();
@@ -20,14 +27,8 @@ await page.getByPlaceholder('00.00').click();
 await page.getByPlaceholder('00.00').fill('10');
 await page.getByRole('button', { name: 'Confirm' }).click();
  
-// Enter Card information
-await page.locator('#mysr-cc-name').fill('Test Test');
-await page.locator('#mysr-cc-number').fill('340000000900000');
-await page.getByPlaceholder('MM / YY').fill('12 / 31');
-await page.getByPlaceholder('CVC').fill('123');
-
 // Click Pay Now
-await page.getByRole('button', { name: 'Pay' }).click();
+await page.getByRole('button', { name: 'Pay', exact: true }).click();
 
 // Wait for 3DS password input and click submit
 await page.waitForSelector('#acs_code');

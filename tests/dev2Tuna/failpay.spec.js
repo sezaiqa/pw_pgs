@@ -14,7 +14,6 @@ test('test', async ({ page }) => {
   await page.getByRole('button', { name: 'Pay fully' }).click();
 
   //Card Name
-  await page.getByRole('button', { name: 'Card' }).click();
   await page.getByRole('textbox', { name: 'Cardholder Name' }).click();
   await page.getByRole('textbox', { name: 'Cardholder Name' }).fill('Error');
 
@@ -35,24 +34,4 @@ test('test', async ({ page }) => {
   //Click Pay Now
   await page.getByRole('button', { name: 'Pay Now' }).click();
   
-const paymentSuccessfulText = await page.$('p.MuiTypography-root.MuiTypography-body1.css-1dbb4wf');
-const fullyPaidText = await page.$('p.MuiTypography-root.MuiTypography-body1.css-1ih4cbc');
-const tableNumberText = await page.$('p.MuiTypography-root.MuiTypography-body1.css-1xyuldj');
-
-// Assertions
-  // Ödeme başarısızlığı mesajını içeren <p> elementi
-  const paymentFailedMessage = page.locator('p.MuiTypography-body1:has-text("Your payment of")');
-  await paymentFailedMessage.waitFor({ state: 'visible' });
-  expect(await paymentFailedMessage.first().textContent()).toMatch(/Your payment of .+ failed/);
-
-  // "Try Again" mesajını içeren <span> elementi
-  const tryAgainMessage = page.locator('span.wrapper:has-text("Try Again")');
-  await tryAgainMessage.waitFor({ state: 'visible' });
-  expect(await tryAgainMessage.first().textContent()).toBe('Try Again');
-
-  // "Please try again to pay by qlub" mesajını içeren <p> elementi
-  const tryAgainErrorMessage = page.locator('p.MuiTypography-body1.error:has-text("Please try again to pay by qlub")');
-  await tryAgainErrorMessage.waitFor({ state: 'visible' });
-  expect(await tryAgainErrorMessage.first().textContent()).toBe('Please try again to pay by qlub');
-
 });

@@ -12,7 +12,6 @@ test('test', async ({ page }) => {
   await page.getByRole('button', { name: 'Pay now' }).click();
 
   //Card Name
-  await page.getByRole('button', { name: 'Card' }).click();
   await page.getByRole('textbox', { name: 'Cardholder Name' }).click();
   await page.getByRole('textbox', { name: 'Cardholder Name' }).fill('Captured');
 

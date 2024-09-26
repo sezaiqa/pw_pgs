@@ -24,7 +24,8 @@ await page.getByPlaceholder('MM / YY').fill('12 / 31');
 await page.getByPlaceholder('CVC').fill('1234');
 
 // Click Pay Now
-await page.getByRole('button', { name: 'Pay' }).click();
+await page.getByRole('button', { name: 'Pay', exact: true }).click();
+
 
 // Wait for 3DS password input and click submit
 await page.waitForSelector('#acs_code');

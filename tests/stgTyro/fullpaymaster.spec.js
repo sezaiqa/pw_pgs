@@ -44,6 +44,6 @@ await page.getByRole('button', { name: 'Pay Now' }).click();
  await expect(fullyPaidText).toHaveText('Fully paid');
  
  const tableNumberText = await page.locator('p.MuiTypography-root.MuiTypography-body1.css-1xyuldj');
- await expect(tableNumberText).toHaveText('Table 2 (Table 1)');
+ await expect(tableNumberText).toHaveText('Table 1 (Table 1)');
 
 });

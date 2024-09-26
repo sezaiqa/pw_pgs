@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
   await page.goto('https://app-dev2.qlub.cloud/qr/au/Auto_TyroConfirm/1/_/_/c3cab3043b'); 
+  await page.getByRole('button', { name: 'Pay now' }).click();
 });
 
 test.afterEach(async ({ page }) => {

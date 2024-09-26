@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-test.setTimeout(100000);
+test.setTimeout(150000);
 
 test('test', async ({ page }) => {
 

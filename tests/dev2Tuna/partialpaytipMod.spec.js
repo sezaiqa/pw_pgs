@@ -18,12 +18,7 @@ test('test', async ({ page }) => {
   await page.getByPlaceholder('00.00', { exact: true }).fill('10');
   await page.getByRole('button', { name: 'Confirm' }).click();
 
-  // Trigger Tip Modal
-  await page.locator('#tip_modal_5 div').nth(1).click();
-  await page.locator('button').filter({ hasText: 'Add tip' }).click();
-
   //Card Name
-  await page.getByRole('button', { name: 'Card' }).click();
   await page.getByRole('textbox', { name: 'Cardholder Name' }).click();
   await page.getByRole('textbox', { name: 'Cardholder Name' }).fill('Captured');
 

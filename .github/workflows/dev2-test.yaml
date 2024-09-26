@@ -32,12 +32,12 @@ on:
           - chromium
           - firefox
           - webkit
-
+    
 jobs:
   test:
     runs-on: ubuntu-latest
-
     strategy:
+      fail-fast: false
       matrix:
         shard: [1/2, 2/2]
     retries: 2

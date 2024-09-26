@@ -42,6 +42,11 @@ jobs:
         shard: [1/2, 2/2]
 
     steps:
+      - name: Set dynamic run name
+        run: |
+          echo "Setting workflow name dynamically..."
+          echo "GITHUB_RUN_NAME=Test the Payment Gateways for ${{ github.event.inputs.env }} - ${{ github.event.inputs.environment }}" >> $GITHUB_ENV
+
       - name: Checkout repository
         uses: actions/checkout@v3
 

@@ -1,26 +1,61 @@
 name: Run Playwright Tests on Dev2
 
 on:
-  workflow_dispatch:  
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Choose the PG'
+        required: true
+        default: 'Moyasar'
+        type: choice
+        options:
+          - Moyasar
+          - Tyro
+          - Tuna
+          - Checkout
+          - Adyen
+          - Ngenius
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        shard: [1/2, 2/2]
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright dependencies
-        uses: microsoft/playwright-github-action@v1
+      - name: Install Playwright browsers and dependencies
+        run: npx playwright install --with-deps
 
-      - name: Install Playwright browsers
-        run: npx playwright install
-
-      - name: Run Playwright tests
+      - name: Set test folder based on environment
         run: |
-          echo "Running tests for dev2Checkout, dev2Moyasar, and dev2Ngenius"
-          npx playwright test --config=playwright.config.js --project=chromium
+          case ${{ github.event.inputs.environment }} in
+            Moyasar) test_folder="tests/dev2Moyasar";;
+            Tyro) test_folder="tests/dev2Tyro";;
+            Tuna) test_folder="tests/dev2Tuna";;
+            Checkout) test_folder="tests/dev2Checkout";;
+            Adyen) test_folder="tests/dev2Adyen";;
+            Ngenius) test_folder="tests/dev2Ngenius";;
+            *) echo "Invalid environment" && exit 1;;
+          esac
+          echo "TEST_FOLDER=$test_folder" >> $GITHUB_ENV
+
+      - name: Run Playwright tests for shard ${{ matrix.shard }}
+        run: |
+          echo "Running shard ${{ matrix.shard }} with test folder $TEST_FOLDER"
+          npx playwright test $TEST_FOLDER --project=chromium --shard=${{ matrix.shard }}

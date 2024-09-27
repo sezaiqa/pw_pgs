@@ -15,12 +15,14 @@ on:
           - Checkout
           - Adyen
           - Ngenius
+          - NpmMoyasar
       env:
         description: 'Choose the Environment'
         required: true
         default: 'dev2'
         type: choice
         options:
+          - staging
           - dev2
           - dev5
           - dev9
